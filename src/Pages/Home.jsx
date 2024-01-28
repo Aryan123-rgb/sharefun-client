@@ -10,17 +10,17 @@ import PostCard from "../components/PostCard";
 import ProfileCard from "../components/ProfileCard";
 import { showToast } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 function Home() {
   const [description, setDescription] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = localStorage.getItem("shareFunUserId");
   const posts = useSelector((state) => state.postReduer?.posts?.data);
-
-  console.log("post", posts);
 
   useEffect(() => {
     if (!userId) {
@@ -57,7 +57,19 @@ function Home() {
   const handleFileInputChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
+    if (file) {
+      const fileSize = file?.size;
+      const maxSize = 10 * 1024 * 1024;
 
+      if (fileSize > maxSize) {
+        showToast(
+          "Image size exceeds 10MB. Please choose a smaller file.",
+          "error"
+        );
+        return;
+      }
+    }
+    console.log(file);
     const previewURL = URL.createObjectURL(file);
     setPreviewImage(previewURL);
   };
@@ -67,6 +79,8 @@ function Home() {
       showToast("Description is required", "info");
       return;
     }
+
+    setIsLoading(true);
 
     let imageUrl = "";
 
@@ -80,7 +94,16 @@ function Home() {
       userId: userId,
     };
 
-    await dispatch(createPost(data));
+    const response = await dispatch(createPost(data));
+
+    const isError = response?.payload?.err;
+
+    if (!isError) {
+      showToast("Post created", "success");
+      setIsLoading(false);
+    }
+    console.log(response);
+
     fetchAllPostFunction();
 
     setDescription("");
@@ -172,11 +195,15 @@ function Home() {
               </label>
 
               <div>
-                <CustomButton
-                  onClick={handleSubmit}
-                  title="Post"
-                  containerStyles="bg-[#0444a4] text-white py-1 px-6 rounded-full font-semibold text-sm"
-                />
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <CustomButton
+                    onClick={handleSubmit}
+                    title="Post"
+                    containerStyles="bg-[#0444a4] text-white py-1 px-6 rounded-full font-semibold text-sm"
+                  />
+                )}
               </div>
             </div>
           </div>

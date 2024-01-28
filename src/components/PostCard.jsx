@@ -58,7 +58,7 @@ const PostCard = ({ post }) => {
           <img
             src={post?.image}
             alt="Post Image"
-            className="w-full mt-2 rounded-lg"
+            className="max-w-[24rem] max-h-[24rem] mt-2 rounded-lg"
           />
         )}
       </div>

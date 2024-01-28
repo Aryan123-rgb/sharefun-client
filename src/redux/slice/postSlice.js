@@ -30,6 +30,7 @@ const initialState = {
   posts: [],
   loading: false,
   error: null,
+  status: "idle",
 };
 
 const postSlice = createSlice({

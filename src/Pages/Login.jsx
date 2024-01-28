@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { TbSocial } from "react-icons/tb";
 import { BsShare } from "react-icons/bs";
@@ -8,11 +8,14 @@ import { useForm, Controller } from "react-hook-form";
 import { Input } from "@material-tailwind/react";
 import CustomButton from "../components/CustomButton";
 import { BgImage } from "../assets";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login, registerUser } from "../redux/slice/authSlice";
 import { showToast } from "../utils/toast";
+import Loading from "../components/Loading";
 
 const Login = () => {
+  const { status } = useSelector((state) => state.authReducer);
+
   const {
     control,
     handleSubmit,
@@ -35,7 +38,6 @@ const Login = () => {
         return;
       } else {
         showToast(msg, "success");
-        dispatch(registerUser(userData));
         navigate("/");
       }
     } catch (error) {
@@ -124,11 +126,15 @@ const Login = () => {
                 </span>
               )}
             </div>
-            <CustomButton
-              type="submit"
-              containerStyles={`inline-flex justify-center rounded-md bg-blue-700 px-8 py-3 text-sm font-medium text-white outline-none`}
-              title="Login"
-            />
+            {status == "pending" ? (
+              <Loading />
+            ) : (
+              <CustomButton
+                type="submit"
+                containerStyles={`inline-flex justify-center rounded-md bg-blue-700 px-8 py-3 text-sm font-medium text-white outline-none`}
+                title="Login"
+              />
+            )}
           </form>
 
           <p className="text-ascent-2 text-sm text-center">

@@ -4,8 +4,8 @@ import "react-toastify/dist/ReactToastify.css";
 export const showToast = (message, type = "info") => {
   const options = {
     position: "top-center",
-    autoClose: 1000,
-    hideProgressBar: false,
+    autoClose: 3000,
+    hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,

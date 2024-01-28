@@ -38,9 +38,8 @@ export const register = createAsyncThunk(
 );
 
 const initialState = {
-  firstName: "",
-  lastName: "",
-  email: "",
+  user: {},
+  status: "idle",
 };
 
 const authSlice = createSlice({
@@ -54,6 +53,23 @@ const authSlice = createSlice({
         }
       });
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(register.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.status = "fulfilled";
+      })
+      .addCase(login.pending, (state) => {
+        state.status = "pending";
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.status = "fulfilled";
+      });
   },
 });
 

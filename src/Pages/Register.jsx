@@ -6,13 +6,16 @@ import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Button, Select, Option } from "@material-tailwind/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { register, registerUser } from "../redux/slice/authSlice";
 import { BgImage } from "../assets";
 import CustomButton from "../components/CustomButton";
 import { showToast } from "../utils/toast";
+import Loading from "../components/Loading";
 
 const Register = () => {
+  const { status } = useSelector((state) => state.authReducer);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -169,11 +172,15 @@ const Register = () => {
                 <span className="error-text">{errors?.password?.message}</span>
               )}
             </div>
-            <CustomButton
-              type="submit"
-              containerStyles={`inline-flex justify-center rounded-md bg-blue-700 px-8 py-3 text-sm font-medium text-white outline-none`}
-              title="Create Account"
-            />
+            {status == "pending" ? (
+              <Loading />
+            ) : (
+              <CustomButton
+                type="submit"
+                containerStyles={`inline-flex justify-center rounded-md bg-blue-700 px-8 py-3 text-sm font-medium text-white outline-none`}
+                title="Create Account"
+              />
+            )}
           </form>
 
           <p className="text-ascent-2 text-sm text-center">
