@@ -29,7 +29,7 @@ const TopBar = () => {
     localStorage.removeItem("shareFunUserId");
     navigate("/");
   };
-  
+
   return (
     <div className="topbar w-full flex items-center justify-between py-3 md:py-6 px-4 bg-primary">
       <Link to="/" className="flex gap-2 items-center">
@@ -41,7 +41,7 @@ const TopBar = () => {
         </span>
       </Link>
 
-      <div className="flex items-center justify-center">
+      <div className="hidden md:flex items-center justify-center">
         <div className="w-full flex flex-col mt-2">
           <div>
             <input
