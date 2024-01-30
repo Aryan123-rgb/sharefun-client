@@ -7,7 +7,7 @@ import { ImConnection } from "react-icons/im";
 import { useForm, Controller } from "react-hook-form";
 import { Input, Button, Select, Option } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
-import { register, registerUser } from "../redux/slice/authSlice";
+import { register } from "../redux/slice/authSlice";
 import { BgImage } from "../assets";
 import CustomButton from "../components/CustomButton";
 import { showToast } from "../utils/toast";
@@ -38,7 +38,6 @@ const Register = () => {
         return;
       } else {
         showToast(msg, "success");
-        dispatch(registerUser(data));
         navigate("/");
       }
     } catch (error) {

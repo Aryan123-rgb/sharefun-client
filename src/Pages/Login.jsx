@@ -9,7 +9,7 @@ import { Input } from "@material-tailwind/react";
 import CustomButton from "../components/CustomButton";
 import { BgImage } from "../assets";
 import { useDispatch, useSelector } from "react-redux";
-import { login, registerUser } from "../redux/slice/authSlice";
+import { login } from "../redux/slice/authSlice";
 import { showToast } from "../utils/toast";
 import Loading from "../components/Loading";
 
@@ -136,6 +136,16 @@ const Login = () => {
               />
             )}
           </form>
+
+          <p className="text-ascent-2 text-sm text-center mb-2">
+            Forgot your password?{" "}
+            <Link
+              to="/forgotPassword"
+              className="text-[#065ad8] font-semibold ml-2 cursor-pointer"
+            >
+              Reset it here.
+            </Link>
+          </p>
 
           <p className="text-ascent-2 text-sm text-center">
             Don't have an account?{" "}

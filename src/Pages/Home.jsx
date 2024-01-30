@@ -157,7 +157,7 @@ function Home() {
                 <img
                   src={previewImage}
                   alt="Preview"
-                  className="max-w-[400px] h-auto rounded-lg"
+                  className="rounded-lg"
                 />
               </div>
             )}

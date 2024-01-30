@@ -7,6 +7,8 @@ import Home from "./Pages/Home";
 import MyComponent from "./components/MyComponent";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ForgotPassword from "./Pages/ForgotPassword";
+import NewPasswordForm from "./components/ResetPassword/NewPasswordForm";
 
 export default function App() {
   const { theme } = useSelector((state) => state.themeReducer);
@@ -19,6 +21,8 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/new-password" element={<NewPasswordForm />} />
       </Routes>
     </div>
   );
