@@ -9,9 +9,9 @@ import { Input, Button, Select, Option } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../redux/slice/authSlice";
 import { BgImage } from "../assets";
-import CustomButton from "../components/CustomButton";
+import CustomButton from "../components/Reusable-components/CustomButton";
 import { showToast } from "../utils/toast";
-import Loading from "../components/Loading";
+import Loading from "../components/Reusable-components/Loading";
 
 const Register = () => {
   const { status } = useSelector((state) => state.authReducer);

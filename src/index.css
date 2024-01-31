@@ -128,8 +128,16 @@
   border-color: var(--color-secondary);
 }
 
-/* Additional utility classes for other colors as needed */
+.follow-button {
+  background-color: var(--color-ascent1);
+  color: var(--color-primary);
+}
 
+.unfollow-button {
+  border: 1px var(--color-ascent2) solid;
+  color: var(--color-ascent1);
+}
+/* Additional utility classes for other colors as needed */
 
 .error-text {
   @apply text-red-500 text-xs ml-0.5 font-medium;
@@ -146,10 +154,6 @@
 
 .link {
   @apply p-2.5 flex rounded-md gap-6 items-center md:cursor-pointer cursor-default duration-300 font-medium;
-}
-
-.active {
-  @apply bg-blue-100 text-blue-600;
 }
 
 .text-slate-500 {

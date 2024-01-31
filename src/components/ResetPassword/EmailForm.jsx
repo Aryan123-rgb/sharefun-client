@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm, Controller } from "react-hook-form";
 import { Input } from "@material-tailwind/react";
 import { useDispatch, useSelector } from "react-redux";
-import CustomButton from "../CustomButton";
-import Loading from "../Loading";
+import CustomButton from "../Reusable-components/CustomButton";
+import Loading from "../Reusable-components/Loading";
 import { showToast } from "../../utils/toast";
 import { login, renderNextState, sendOTP } from "../../redux/slice/authSlice";
 

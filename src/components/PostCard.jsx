@@ -12,7 +12,7 @@ const PostCard = ({ post }) => {
   const user = post?.userId;
 
   return (
-    <div className="mb-2 bg-primary md:max-w-3xl p-4 rounded-xl">
+    <div className="mb-2 bg-primary  p-4 rounded-xl">
       {/* User Information */}
       <div className="flex gap-3 items-center mb-1">
         <Link to={"/profile/"}>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import CustomButton from "../CustomButton";
-import Loading from "../Loading";
+import CustomButton from "../Reusable-components/CustomButton";
+import Loading from "../Reusable-components/Loading";
 import { useDispatch } from "react-redux";
 import { renderNextState, verifyOTP } from "../../redux/slice/authSlice";
 import { showToast } from "../../utils/toast";

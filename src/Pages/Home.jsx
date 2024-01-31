@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import TopBar from "../components/TopBar";
 import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
 import { BiImages, BiSolidVideo } from "react-icons/bi";
-import TextInput from "../components/TextInput";
-import CustomButton from "../components/CustomButton";
+import TextInput from "../components/Reusable-components/TextInput";
+import CustomButton from "../components/Reusable-components/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import { createPost, getAllPosts } from "../redux/slice/postSlice";
 import PostCard from "../components/PostCard";
 import ProfileCard from "../components/ProfileCard";
 import { showToast } from "../utils/toast";
 import { useNavigate } from "react-router-dom";
-import Loading from "../components/Loading";
+import Loading from "../components/Reusable-components/Loading";
+import FriendSuggestionCard from "../components/Friends/FriendSuggestionCard";
+import FriendRequestCard from "../components/Friends/FriendRequestCard";
+import FollowersCard from "../components/Friends/FollowersCard";
 
 function Home() {
   const [description, setDescription] = useState("");
@@ -119,14 +122,14 @@ function Home() {
     fetchAllPostFunction();
   }, []);
   return (
-    <div className="w-full px-0 lg:px-10 pb-20 2xl:px-40 bg-bgColor h-screen overflow-hidden">
+    <div className="w-full px-0 lg:px-10 pb-20 2xl:px-4 bg-bgColor h-screen overflow-hidden">
       <TopBar />
       <div className="w-full flex gap-2 lg:gap-4 pt-5 pb-10 h-full">
         {/* LEFT */}
 
         <div className="hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-6 overflow-y-auto">
           <ProfileCard />
-          {/* <FriendsCard friends={user?.friends} /> */}
+          <FollowersCard />
         </div>
 
         {/* CENTER */}
@@ -154,11 +157,7 @@ function Home() {
             </div>
             {previewImage && (
               <div className="mt-4">
-                <img
-                  src={previewImage}
-                  alt="Preview"
-                  className="rounded-lg"
-                />
+                <img src={previewImage} alt="Preview" className="rounded-lg" />
               </div>
             )}
             <div className="flex items-center justify-between py-4">
@@ -211,8 +210,14 @@ function Home() {
             posts?.length > 0 &&
             posts?.map((post) => <PostCard key={post._id} post={post} />)}
         </div>
+
+        {/* RIGHT */}
+        <div className="hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-6 overflow-y-auto">
+          <FriendRequestCard />
+          <FriendSuggestionCard />
+          {/* <FriendsCard friends={user?.friends} /> */}
+        </div>
       </div>
-      {/* CENTER */}
     </div>
   );
 }

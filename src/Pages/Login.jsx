@@ -6,12 +6,12 @@ import { AiOutlineInteraction } from "react-icons/ai";
 import { ImConnection } from "react-icons/im";
 import { useForm, Controller } from "react-hook-form";
 import { Input } from "@material-tailwind/react";
-import CustomButton from "../components/CustomButton";
+import CustomButton from "../components/Reusable-components/CustomButton";
 import { BgImage } from "../assets";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/slice/authSlice";
 import { showToast } from "../utils/toast";
-import Loading from "../components/Loading";
+import Loading from "../components/Reusable-components/Loading";
 
 const Login = () => {
   const { status } = useSelector((state) => state.authReducer);
