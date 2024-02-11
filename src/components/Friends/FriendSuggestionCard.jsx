@@ -12,30 +12,20 @@ import { CiLocationOn } from "react-icons/ci";
 import moment from "moment";
 import FriendCard from "./FriendCard";
 
-const FriendSuggestionCard = () => {
-  // Static dummy data
-  const dummyUser = {
-    _id: "123",
-    firstName: "John",
-    lastName: "Doe",
-    profileUrl: "",
-    email: "john.doe@example.com",
-    profession: "Web Developer",
-    location: "New York, USA",
-    friends: ["friend1", "friend2", "friend3"],
-    views: ["view1", "view2", "view3"],
-    verified: true,
-    createdAt: new Date().toISOString(),
+const FriendSuggestionCard = ({ friendSuggestions }) => {
+  const renderFriendCards = () => {
+    return friendSuggestions.map((friend, index) => (
+      <FriendCard
+        key={index}
+        firstName={friend.firstName}
+        lastName={friend.lastName}
+        friendRequest="rejected"
+        id={friend?._id}
+        email={friend?.email}
+        // Add other necessary props
+      />
+    ));
   };
-
-  const dummySocialProfiles = {
-    instagram: "john.doe.instagram",
-    twitter: "john_doe_twitter",
-    facebook: "john.doe.facebook",
-  };
-
-  const dummyUserDetails = dummyUser;
-  const dummySocialDetails = dummySocialProfiles;
 
   return (
     <div>
@@ -44,14 +34,13 @@ const FriendSuggestionCard = () => {
           <h1 className="text-ascent-1 text-xl font-semibold">
             Friend Suggestion
           </h1>
-          <p className="text-ascent-1 text-lg font-semibold">0</p>
+          <p className="text-ascent-1 text-lg font-semibold">
+            {friendSuggestions?.length}
+          </p>
         </div>
 
         <div className="w-full flex flex-col gap-2 py-4">
-          <FriendCard />
-          <FriendCard />
-          <FriendCard />
-          <FriendCard />
+          {renderFriendCards()}
         </div>
       </div>
     </div>

@@ -1,28 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { FaUserPlus } from "react-icons/fa";
-import CustomButton from "../Reusable-components/CustomButton";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { sendFriendRequest } from "../../redux/slice/userSlice";
 
-function FriendCard() {
-  // Dummy data
+function FriendCard({ firstName, lastName, friendRequest, id, email }) {
+  const dispatch = useDispatch();
+  const [friendRequestStatus, setFriendRequestStatus] = useState(friendRequest);
+
   const userData = {
-    name: "John Doe",
-    profession: "Web Developer",
+    name: `${firstName} ${lastName}`,
+    profession: email?.split("@")[0],
     profileImage:
       "https://www.codewithantonio.com/_next/image?url=%2Flogo2.png&w=48&q=75",
-    friendRequestSent: true,
   };
 
-  const [styles, setStyles] = useState("");
-
-  useEffect(() => {
-    const theme = localStorage.getItem("theme");
-    console.log(theme)
-    const updatedStyles =
-      theme === "dark"
-        ? "hover:bg-white hover:text-black"
-        : "hover:bg-black hover:text-white";
-    setStyles(updatedStyles);
-  }, []);
+  const handleSendFriendRequest = async () => {
+    try {
+      const response = await dispatch(sendFriendRequest(id));
+      console.log(response);
+      setFriendRequestStatus("accepted");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="flex items-center rounded-lg">
@@ -47,37 +46,38 @@ function FriendCard() {
       </div>
 
       {/* Friend Request Button */}
-      {/* {userData.friendRequestSent ? (
-        <div className="flex ml-auto space-x-4 items-center">
-          <CustomButton
-            title="Accept"
-            containerStyles="bg-[#0444a4] text-white py-1 px-2 rounded-full font-semibold text-sm"
-          />
-          <CustomButton
-            title="Deny"
-            containerStyles="text-ascent-2 border border-[text-ascent-1] py-1 px-2 rounded-full font-semibold text-sm"
-          />
+      {friendRequestStatus === "sent" ? (
+        <div className="flex ml-auto space-x-2 items-center">
+          <button
+            className="ml-auto unfollow-button transition text-lg px-2 py-0.5 rounded-full"
+            onClick={() => setFriendRequestStatus("accepted")}
+          >
+            Accept
+          </button>
+          <button
+            className="ml-auto unfollow-button transition text-lg px-4 py-1 rounded-full"
+            onClick={() => setFriendRequestStatus("accepted")}
+          >
+            Deny
+          </button>
         </div>
-      ) : (
+      ) : null}
+      {friendRequestStatus === "rejected" ? (
         <button
-          className="ml-auto rounded-full"
-          // Add onClick handler for sending friend request
+          className="ml-auto unfollow-button transition text-lg px-4 py-1 rounded-full"
+          onClick={() => handleSendFriendRequest()}
         >
-          <FaUserPlus className="mr-2 text-ascent-2" />
+          Follow
         </button>
-      )} */}
-      {/* <button
-        className="ml-auto follow-button text-lg px-3 py-1 rounded-full font-[450]"
-        // Add onClick handler for sending friend request
-      >
-        Follow
-      </button> */}
-      <button
-        className={`ml-auto unfollow-button transition text-lg px-4 py-1 rounded-full`}
-        // Add onClick handler for sending friend request
-      >
-        Following
-      </button>
+      ) : null}
+      {friendRequestStatus === "accepted" ? (
+        <button
+          className={`ml-auto unfollow-button transition text-lg px-4 py-1 rounded-full`}
+          onClick={() => setFriendRequestStatus("rejected")}
+        >
+          Following
+        </button>
+      ) : null}
     </div>
   );
 }

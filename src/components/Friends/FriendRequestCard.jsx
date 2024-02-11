@@ -12,31 +12,7 @@ import { CiLocationOn } from "react-icons/ci";
 import moment from "moment";
 import FriendCard from "./FriendCard";
 
-const FriendRequestCard = () => {
-  // Static dummy data
-  const dummyUser = {
-    _id: "123",
-    firstName: "John",
-    lastName: "Doe",
-    profileUrl: "",
-    email: "john.doe@example.com",
-    profession: "Web Developer",
-    location: "New York, USA",
-    friends: ["friend1", "friend2", "friend3"],
-    views: ["view1", "view2", "view3"],
-    verified: true,
-    createdAt: new Date().toISOString(),
-  };
-
-  const dummySocialProfiles = {
-    instagram: "john.doe.instagram",
-    twitter: "john_doe_twitter",
-    facebook: "john.doe.facebook",
-  };
-
-  const dummyUserDetails = dummyUser;
-  const dummySocialDetails = dummySocialProfiles;
-
+const FriendRequestCard = ({ friendRequest }) => {
   return (
     <div>
       <div className="w-full bg-primary flex flex-col items-center shadow-sm rounded-xl px-6 py-4 ">
@@ -48,10 +24,15 @@ const FriendRequestCard = () => {
         </div>
 
         <div className="w-full flex flex-col gap-2 py-4">
-          <FriendCard />
-          <FriendCard />
-          <FriendCard />
-          <FriendCard />
+          {friendRequest.map((friend) => (
+            <FriendCard
+              key={friend._id}
+              firstName={friend.firstName}
+              lastName={friend.lastName}
+              email={friend.email}
+              friendRequest="sent"
+            />
+          ))}
         </div>
       </div>
     </div>

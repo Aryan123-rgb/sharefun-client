@@ -73,7 +73,7 @@ const TopBar = () => {
         <button onClick={handleTheme}>
           {theme === "dark" ? <BsMoon /> : <BsSunFill />}
         </button>
-        <div className="">
+        <div className="mt-2">
           <MobileMenu handleLogout={handleLogout} />
         </div>
       </div>

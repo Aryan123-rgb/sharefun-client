@@ -14,12 +14,17 @@ import Loading from "../components/Reusable-components/Loading";
 import FriendSuggestionCard from "../components/Friends/FriendSuggestionCard";
 import FriendRequestCard from "../components/Friends/FriendRequestCard";
 import FollowersCard from "../components/Friends/FollowersCard";
+import { fetchLoggedInUserData } from "../redux/slice/userSlice";
+import { filterFriends } from "../utils/friends";
 
 function Home() {
   const [description, setDescription] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [friends, setFriends] = useState("");
+  const [friendRequests, setFriendRequests] = useState([]);
+  const [friendSuggestions, setFriendSuggestions] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userId = localStorage.getItem("shareFunUserId");
@@ -30,6 +35,18 @@ function Home() {
       navigate("/login");
     }
   });
+
+  const handleFetchALLUsers = async () => {
+    const response = await dispatch(fetchLoggedInUserData());
+    const isError = response?.payload?.err;
+
+    if (!isError) {
+      const data = response?.payload?.data;
+      console.log(data);
+      setFriendSuggestions(data?.friendSuggestions);
+      setFriendRequests(data?.friendRequest);
+    }
+  };
 
   const uploadToCloudinary = async (file) => {
     try {
@@ -120,6 +137,7 @@ function Home() {
 
   useEffect(() => {
     fetchAllPostFunction();
+    handleFetchALLUsers();
   }, []);
   return (
     <div className="w-full pb-20 bg-bgColor h-screen overflow-hidden">
@@ -213,8 +231,8 @@ function Home() {
 
         {/* RIGHT */}
         <div className="hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-6 overflow-y-auto">
-          <FriendRequestCard />
-          <FriendSuggestionCard />
+          <FriendRequestCard friendRequest={friendRequests} />
+          <FriendSuggestionCard friendSuggestions={friendSuggestions} />
           {/* <FriendsCard friends={user?.friends} /> */}
         </div>
       </div>
