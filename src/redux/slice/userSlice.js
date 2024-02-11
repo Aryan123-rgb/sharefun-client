@@ -34,11 +34,15 @@ export const sendFriendRequest = createAsyncThunk(
 export const acceptFriendRequest = createAsyncThunk(
   "/users/acceptFriendRequest",
   async (targetUserId, { rejectWithValue }) => {
+    console.log(targetUserId, loggedInUserId);
     try {
-      const response = await axios.post(`${baseUrl}/users/acceptFriendRequest`, {
-        loggedInUserId,
-        targetUserId,
-      });
+      const response = await axios.post(
+        `${baseUrl}/users/acceptFriendRequest`,
+        {
+          loggedInUserId,
+          targetUserId,
+        }
+      );
       return response?.data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);

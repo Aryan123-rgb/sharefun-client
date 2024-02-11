@@ -12,46 +12,28 @@ import { CiLocationOn } from "react-icons/ci";
 import moment from "moment";
 import FriendCard from "./FriendCard";
 
-const FollowersCard = () => {
-  // Static dummy data
-  const dummyUser = {
-    _id: "123",
-    firstName: "John",
-    lastName: "Doe",
-    profileUrl: "",
-    email: "john.doe@example.com",
-    profession: "Web Developer",
-    location: "New York, USA",
-    friends: ["friend1", "friend2", "friend3"],
-    views: ["view1", "view2", "view3"],
-    verified: true,
-    createdAt: new Date().toISOString(),
-  };
-
-  const dummySocialProfiles = {
-    instagram: "john.doe.instagram",
-    twitter: "john_doe_twitter",
-    facebook: "john.doe.facebook",
-  };
-
-  const dummyUserDetails = dummyUser;
-  const dummySocialDetails = dummySocialProfiles;
-
+const FollowersCard = ({ friends }) => {
   return (
     <div>
       <div className="w-full bg-primary flex flex-col items-center shadow-sm rounded-xl px-6 py-4 ">
         <div className="w-full flex items-center justify-between border-b pb-5 border-[#66666645]">
-          <h1 className="text-ascent-1 text-xl font-semibold">
-            Followers
-          </h1>
-          <p className="text-ascent-1 text-lg font-semibold">0</p>
+          <h1 className="text-ascent-1 text-xl font-semibold">Friends</h1>
+          <p className="text-ascent-1 text-lg font-semibold">
+            {friends?.length}
+          </p>
         </div>
 
         <div className="w-full flex flex-col gap-2 py-4">
-          <FriendCard />
-          <FriendCard />
-          <FriendCard />
-          <FriendCard />
+          {friends.map((friend) => (
+            <FriendCard
+              key={friend._id}
+              firstName={friend.firstName}
+              lastName={friend.lastName}
+              email={friend.email}
+              friendRequest="accepted"
+              id={friend._id}
+            />
+          ))}
         </div>
       </div>
     </div>

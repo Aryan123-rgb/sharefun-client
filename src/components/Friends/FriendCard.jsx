@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { sendFriendRequest } from "../../redux/slice/userSlice";
+import {
+  acceptFriendRequest,
+  sendFriendRequest,
+} from "../../redux/slice/userSlice";
 
 function FriendCard({ firstName, lastName, friendRequest, id, email }) {
   const dispatch = useDispatch();
@@ -16,6 +19,16 @@ function FriendCard({ firstName, lastName, friendRequest, id, email }) {
   const handleSendFriendRequest = async () => {
     try {
       const response = await dispatch(sendFriendRequest(id));
+
+      setFriendRequestStatus("sent");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleAcceptFriendRequest = async () => {
+    try {
+      const response = await dispatch(acceptFriendRequest(id));
       console.log(response);
       setFriendRequestStatus("accepted");
     } catch (error) {
@@ -50,7 +63,7 @@ function FriendCard({ firstName, lastName, friendRequest, id, email }) {
         <div className="flex ml-auto space-x-2 items-center">
           <button
             className="ml-auto unfollow-button transition text-lg px-2 py-0.5 rounded-full"
-            onClick={() => setFriendRequestStatus("accepted")}
+            onClick={() => handleAcceptFriendRequest()}
           >
             Accept
           </button>

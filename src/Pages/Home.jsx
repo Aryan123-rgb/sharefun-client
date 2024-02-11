@@ -22,7 +22,7 @@ function Home() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [friends, setFriends] = useState("");
+  const [friends, setFriends] = useState([]);
   const [friendRequests, setFriendRequests] = useState([]);
   const [friendSuggestions, setFriendSuggestions] = useState([]);
   const dispatch = useDispatch();
@@ -45,6 +45,7 @@ function Home() {
       console.log(data);
       setFriendSuggestions(data?.friendSuggestions);
       setFriendRequests(data?.friendRequest);
+      setFriends(data?.friends);
     }
   };
 
@@ -147,7 +148,7 @@ function Home() {
 
         <div className="hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-6 overflow-y-auto">
           <ProfileCard />
-          <FollowersCard />
+          <FollowersCard friends={friends} />
         </div>
 
         {/* CENTER */}
