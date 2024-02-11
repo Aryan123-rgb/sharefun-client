@@ -137,7 +137,12 @@
   border: 1px var(--color-ascent2) solid;
   color: var(--color-ascent1);
 }
-/* Additional utility classes for other colors as needed */
+
+.unfollow-button:hover {
+  background-color: var(--color-ascent1);
+  color: var(--color-secondary);
+  transition: 0.25s ease-in-out;
+}
 
 .error-text {
   @apply text-red-500 text-xs ml-0.5 font-medium;

@@ -129,11 +129,12 @@ const Login = () => {
             {status == "pending" ? (
               <Loading />
             ) : (
-              <CustomButton
-                type="submit"
-                containerStyles={`inline-flex justify-center rounded-md bg-blue-700 px-8 py-3 text-sm font-medium text-white outline-none`}
-                title="Login"
-              />
+              <button
+                onClick={handleSubmit}
+                className="inline-flex justify-center rounded-md bg-blue px-8 py-3 text-sm font-medium text-white outline-none"
+              >
+                Login
+              </button>
             )}
           </form>
 

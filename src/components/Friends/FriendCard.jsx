@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaUserPlus } from "react-icons/fa";
 import CustomButton from "../Reusable-components/CustomButton";
 
@@ -11,6 +11,18 @@ function FriendCard() {
       "https://www.codewithantonio.com/_next/image?url=%2Flogo2.png&w=48&q=75",
     friendRequestSent: true,
   };
+
+  const [styles, setStyles] = useState("");
+
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    console.log(theme)
+    const updatedStyles =
+      theme === "dark"
+        ? "hover:bg-white hover:text-black"
+        : "hover:bg-black hover:text-white";
+    setStyles(updatedStyles);
+  }, []);
 
   return (
     <div className="flex items-center rounded-lg">
@@ -61,7 +73,7 @@ function FriendCard() {
         Follow
       </button> */}
       <button
-        className="ml-auto unfollow-button text-lg px-4 py-1 rounded-full "
+        className={`ml-auto unfollow-button transition text-lg px-4 py-1 rounded-full`}
         // Add onClick handler for sending friend request
       >
         Following

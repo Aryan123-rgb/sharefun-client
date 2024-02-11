@@ -8,11 +8,20 @@ import CustomButton from "./Reusable-components/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import { SetTheme } from "../redux/slice/themeSlice";
 import { useForm } from "react-hook-form";
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
+import MobileMenu from "./MobileMenu";
 
 const TopBar = () => {
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.themeReducer);
   const navigate = useNavigate();
+  const [openMenu, setOpenMenu] = React.useState(false);
 
   const {
     register: formRegister,
@@ -64,16 +73,8 @@ const TopBar = () => {
         <button onClick={handleTheme}>
           {theme === "dark" ? <BsMoon /> : <BsSunFill />}
         </button>
-        <div className="hidden lg:flex">
-          <IoMdNotificationsOutline />
-        </div>
-
-        <div>
-          <CustomButton
-            title="Log Out"
-            containerStyles="text-sm text-ascent-1 px-4 md:px-6 py-1 md:py-2 border border-[#666] rounded-full"
-            onClick={handleLogout}
-          />
+        <div className="">
+          <MobileMenu handleLogout={handleLogout} />
         </div>
       </div>
     </div>

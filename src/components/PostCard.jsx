@@ -58,7 +58,7 @@ const PostCard = ({ post }) => {
           <img
             src={post?.image}
             alt="Post Image"
-            className=" mt-2 rounded-lg"
+            className=" mt-2 rounded-lg "
           />
         )}
       </div>
